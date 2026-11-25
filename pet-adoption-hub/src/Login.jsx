@@ -9,22 +9,51 @@ function Login({ setPage }) {
     e.preventDefault();
     setMessage("");
 
-    // Email validation
+    // Validate email
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!emailPattern.test(email)) {
-      setMessage("Please enter a valid email (e.g., name@example.com).");
+    if (!emailPattern.test(email.trim())) {
+      setMessage("Please enter a valid email.");
       return;
     }
 
+    // Get registered user's login details
     const savedEmail = localStorage.getItem("email");
     const savedPassword = localStorage.getItem("password");
 
+    // Check login details
     if (
-      email === savedEmail &&
-      password === savedPassword &&
-      savedEmail !== null
+      savedEmail !== null &&
+      email.trim().toLowerCase() ===
+        savedEmail.trim().toLowerCase() &&
+      password === savedPassword
     ) {
+      // Save successful login history
+      const history = JSON.parse(
+        localStorage.getItem("loginHistory") || "[]"
+      );
+
+      history.unshift({
+        email: savedEmail,
+        time: new Date().toLocaleString(),
+      });
+
+      localStorage.setItem(
+        "loginHistory",
+        JSON.stringify(history)
+      );
+
+      // Increase successful login count
+      const count = Number(
+        localStorage.getItem("totalLogins") || 0
+      );
+
+      localStorage.setItem(
+        "totalLogins",
+        String(count + 1)
+      );
+
+      // Open menu after successful login
       setPage("menu");
     } else {
       setMessage("Invalid email or password!");
@@ -56,7 +85,6 @@ function Login({ setPage }) {
           required
         />
 
-        {/* Small inline validation message */}
         {message && (
           <p className="login-error">{message}</p>
         )}
@@ -70,6 +98,15 @@ function Login({ setPage }) {
             onClick={() => setPage("register")}
           >
             Register
+          </span>
+        </p>
+
+        <p>
+          <span
+            className="link"
+            onClick={() => setPage("adminLogin")}
+          >
+            Login as Admin
           </span>
         </p>
 

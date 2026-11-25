@@ -1,6 +1,14 @@
 * {
   box-sizing: border-box;
-  color: black !important;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
 }
 
 body {
@@ -9,28 +17,47 @@ body {
   background: lightcyan;
 }
 
+/* START PAGE */
 .start-page {
+  width: 100%;
   min-height: 100vh;
+
+  /* Full-screen background image */
   background-image: url("/PAF_IMG_2.jpeg");
   background-size: cover;
-  background-position: center bottom;
+  background-position: center center;
+  background-repeat: no-repeat;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
   text-align: center;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.home-content {
+  background: transparent;
+  padding: 30px;
+  max-width: 90%;
 }
 
 .start-page h1 {
   font-size: 45px;
   color: black;
+  text-shadow: none;
+  margin-bottom: 15px;
 }
 
 .start-page p {
   color: black;
   font-size: 20px;
+  text-shadow: none;
 }
 
+/* BUTTONS */
 button {
   background: cyan;
   color: black;
@@ -47,8 +74,10 @@ button:hover {
   background: #00cccc;
 }
 
+/* GENERAL PAGE */
 .page {
   min-height: 100vh;
+  width: 100%;
   background: lightcyan;
   display: flex;
   justify-content: center;
@@ -56,6 +85,7 @@ button:hover {
   padding: 25px 15px;
 }
 
+/* FORM CARD */
 .form-card {
   background: white;
   width: 320px;
@@ -107,45 +137,50 @@ button:hover {
   color: black;
 }
 
+/* LINKS */
 .link {
-  color: black;
+  color: #007b83;
   cursor: pointer;
   text-decoration: underline;
 }
 
 .link:hover {
-  color: black;
+  color: #005f66;
 }
 
+/* ERROR AND SUCCESS */
 .error {
-  color: black !important;
+  color: red;
   font-size: 14px;
   margin: 8px 0;
 }
 
-@media (max-width: 480px) {
-  .form-card {
-    padding: 22px;
-  }
-
-  .register-card {
-    width: 380px;
-  }
-
-  .start-page h1 {
-    font-size: 34px;
-  }
-
-  .start-page p {
-    font-size: 16px;
-  }
+.success {
+  color: green;
+  text-align: center;
+  font-weight: bold;
 }
 
+/* TEXTAREA */
+.form-card textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  resize: vertical;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+/* MENU PAGE */
 .menu-page {
   min-height: 100vh;
+  width: 100%;
   background: lightcyan;
 }
 
+/* MENU HEADER */
 .menu-header {
   background: cyan;
   padding: 12px 25px;
@@ -161,6 +196,7 @@ button:hover {
   color: black;
 }
 
+/* NAVIGATION */
 .menu-nav {
   display: flex;
   align-items: center;
@@ -176,13 +212,14 @@ button:hover {
 }
 
 .menu-nav a:hover {
-  color: black;
+  color: #007b83;
 }
 
 .menu-header button {
   margin: 0;
 }
 
+/* WELCOME SECTION */
 .welcome-section {
   text-align: center;
   padding: 20px;
@@ -193,6 +230,7 @@ button:hover {
   color: black;
 }
 
+/* IMAGE SLIDER */
 .slider-section {
   width: 90%;
   max-width: 1000px;
@@ -211,6 +249,7 @@ button:hover {
   margin: 10px;
 }
 
+/* PETS SECTION */
 .pets-section {
   text-align: center;
   padding: 20px;
@@ -227,14 +266,17 @@ button:hover {
   color: black;
 }
 
+/* PET GRID */
 .pet-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 22px;
   max-width: 1200px;
   margin: auto;
+  padding: 10px;
 }
 
+/* PET CARD */
 .pet-card {
   background: white;
   padding: 15px;
@@ -266,12 +308,14 @@ button:hover {
   margin: 8px 0 0;
 }
 
+/* MENU INFORMATION */
 .menu-info {
   padding: 30px 20px;
   text-align: center;
   color: black;
 }
 
+/* FOOTER */
 .menu-footer {
   background: cyan;
   padding: 15px;
@@ -279,6 +323,7 @@ button:hover {
   color: black;
 }
 
+/* TABLET RESPONSIVENESS */
 @media (max-width: 800px) {
   .pet-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -293,7 +338,24 @@ button:hover {
   }
 }
 
+/* MOBILE RESPONSIVENESS */
 @media (max-width: 480px) {
+  .form-card {
+    padding: 22px;
+  }
+
+  .register-card {
+    width: 100%;
+  }
+
+  .start-page h1 {
+    font-size: 34px;
+  }
+
+  .start-page p {
+    font-size: 16px;
+  }
+
   .pet-grid {
     grid-template-columns: 1fr;
   }
@@ -301,17 +363,121 @@ button:hover {
   .slider-image {
     height: 220px;
   }
-}.success {
-  color: green;
-  text-align: center;
-  font-weight: bold;
+
+  .menu-nav {
+    gap: 12px;
+  }
+
+  .home-content {
+    padding: 20px;
+  }
+}
+/* Admin Dashboard - Preserve Existing Colors */
+
+.admin-page {
+  min-height: 100vh;
+  width: 100%;
+  background: lightcyan;
+  color: black;
 }
 
-.form-card textarea {
+.admin-main {
   width: 100%;
-  padding: 12px;
-  margin: 8px 0;
+  min-height: 100vh;
+  padding: 30px 5%;
+  background: lightcyan;
+  color: black;
+}
+
+.admin-topbar {
+  margin-bottom: 25px;
+  padding: 20px 0;
+  border-bottom: 2px solid cyan;
+  color: black;
+}
+
+.admin-topbar h1,
+.admin-topbar p {
+  color: black;
+}
+
+.admin-section {
+  width: 100%;
+  background: white;
+  color: black;
+  padding: 25px;
+  margin-bottom: 25px;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.admin-section h2,
+.admin-section p,
+.admin-record strong {
+  color: black;
+}
+
+.admin-action-button {
+  background: cyan;
+  color: black;
+  padding: 12px 25px;
+  border: none;
   border-radius: 6px;
-  border: 1px solid #ccc;
-  resize: vertical;
+  cursor: pointer;
+}
+
+.admin-action-button:hover {
+  background: #00cccc;
+  color: black;
+}
+
+.admin-email-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.admin-record {
+  padding: 15px;
+  border: 1px solid cyan;
+  border-radius: 8px;
+  background: lightcyan;
+  color: black;
+  overflow-wrap: anywhere;
+}
+
+.admin-record p {
+  margin: 5px 0;
+  line-height: 1.6;
+  color: black;
+}
+
+.admin-logout {
+  text-align: center;
+  padding: 15px 0;
+}
+
+.admin-footer {
+  text-align: center;
+  padding: 15px;
+  color: black;
+  background: lightcyan;
+}
+
+@media (max-width: 600px) {
+  .admin-main {
+    padding: 15px;
+  }
+
+  .admin-section {
+    padding: 18px;
+  }
+
+  .admin-topbar h1 {
+    font-size: 25px;
+  }
+
+  .admin-section h2 {
+    font-size: 18px;
+  }
 }

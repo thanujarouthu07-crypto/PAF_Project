@@ -21,8 +21,31 @@ function Adoption({ setPage, pet }) {
   function handleSubmit(e) {
     e.preventDefault();
 
+    // Get previously saved adoption applications
+    const requests = JSON.parse(
+      localStorage.getItem("adoptionRequests") || "[]"
+    );
+
+    // Save the completed adoption application
+    requests.push({
+      name: form.name,
+      email: form.email,
+      phone: form.phone,
+      address: form.address,
+      reason: form.reason,
+      pet: pet?.name || "Selected Pet",
+      time: new Date().toLocaleString()
+    });
+
+    localStorage.setItem(
+      "adoptionRequests",
+      JSON.stringify(requests)
+    );
+
+    // Show success message
     setMessage("Adoption application submitted successfully!");
 
+    // Clear the form after successful submission
     setForm({
       name: "",
       email: "",

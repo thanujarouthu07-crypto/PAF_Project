@@ -22,7 +22,7 @@ const pets = [
   {
     name: "Beagle",
     type: "Dog",
-    image: "https://images.unsplash.com/photo-1505628346881-b72b27e84530?w=500",
+    image: "https://th.bing.com/th/id/OIP.5lqRdDCzHc73uM7nl2LkbAHaE7?w=500",
     page: "beagle"
   },
   {

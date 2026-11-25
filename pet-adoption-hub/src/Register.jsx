@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 
 function Register({ setPage }) {
@@ -24,19 +25,74 @@ function Register({ setPage }) {
 
   function handleRegister(e) {
     e.preventDefault();
+    setMessage("");
+    setSuccess(false);
 
+    const email = form.email.trim().toLowerCase();
+
+    // Check that passwords match
     if (form.password !== form.confirmPassword) {
       setMessage("Passwords do not match!");
       return;
     }
 
-    localStorage.setItem("fname", form.fname);
-    localStorage.setItem("lname", form.lname);
-    localStorage.setItem("phone", form.phone);
+    // Read existing registered users
+    let registeredUsers = [];
+
+    try {
+      registeredUsers = JSON.parse(
+        localStorage.getItem("registeredUsers") || "[]"
+      );
+
+      if (!Array.isArray(registeredUsers)) {
+        registeredUsers = [];
+      }
+    } catch {
+      registeredUsers = [];
+    }
+
+    // Prevent duplicate email registrations
+    const emailExists = registeredUsers.some(
+      (user) => user.email?.toLowerCase() === email
+    );
+
+    if (emailExists || localStorage.getItem("email")?.toLowerCase() === email) {
+      setMessage("This email is already registered. Please login.");
+      return;
+    }
+
+    // Save the registered user's details
+    const newUser = {
+      fname: form.fname.trim(),
+      lname: form.lname.trim(),
+      phone: form.phone.trim(),
+      age: form.age,
+      gender: form.gender,
+      email: email,
+      registeredAt: new Date().toLocaleString()
+    };
+
+    registeredUsers.push(newUser);
+
+    localStorage.setItem(
+      "registeredUsers",
+      JSON.stringify(registeredUsers)
+    );
+
+    // Keep compatibility with the existing Login.jsx
+    localStorage.setItem("fname", form.fname.trim());
+    localStorage.setItem("lname", form.lname.trim());
+    localStorage.setItem("phone", form.phone.trim());
     localStorage.setItem("age", form.age);
     localStorage.setItem("gender", form.gender);
-    localStorage.setItem("email", form.email);
+    localStorage.setItem("email", email);
     localStorage.setItem("password", form.password);
+
+    // Save the total registration count
+    localStorage.setItem(
+      "totalRegistrations",
+      String(registeredUsers.length)
+    );
 
     setMessage("Registration Successful!");
     setSuccess(true);
@@ -82,6 +138,7 @@ function Register({ setPage }) {
         <input
           name="age"
           type="number"
+          min="1"
           placeholder="Age"
           value={form.age}
           onChange={handleChange}
@@ -128,7 +185,7 @@ function Register({ setPage }) {
         />
 
         <button type="submit" disabled={success}>
-          Register
+          {success ? "Registered" : "Register"}
         </button>
 
         {message && (
